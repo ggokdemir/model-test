@@ -98,3 +98,19 @@ resultLabel = np.argmax(result, axis=1)
 plt.imshow(image_inverted, cmap='gray')
 plt.title('Prediction {}'.format(labels[resultLabel[0]]))
 plt.show()
+
+#select a random subset from test data
+random.seed(112358)
+sample = np.arange(raw_test_X.shape[0])
+np.random.shuffle(sample)
+sample = sample[0:5]
+
+results = np.round(model.predict(test_X[sample], verbose=1), decimals=2)
+resultLabels = np.argmax(results, axis=1)
+
+fig=plt.figure(figsize=(15, 8))
+for i in range(5):
+    fig.add_subplot(2, 5, i+1, aspect='equal')
+    plt.imshow(raw_test_X[sample[i]].T, cmap='gray')
+    plt.title('Class {}'.format(labels[resultLabels[i]]))
+    plt.xlabel("Img {}".format(sample[i]))
